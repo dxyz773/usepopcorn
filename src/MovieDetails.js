@@ -53,6 +53,14 @@ function MovieDetails({
     getMovieDetails();
   }, [selectedID, apiKey]);
 
+  useEffect(
+    function () {
+      if (!title) return;
+      document.title = `Movie | ${title}`;
+    },
+    [title]
+  );
+
   function handleRating(rating) {
     setUserRating(rating);
   }
