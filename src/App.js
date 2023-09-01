@@ -15,7 +15,7 @@ import MovieDetails from "./MovieDetails";
 const KEY = "f7058c15";
 
 export default function App() {
-  const [query, setQuery] = useState("inception");
+  const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
   const [selectedID, setSelectedID] = useState(null);
   const [watched, setWatched] = useState([]);
@@ -50,34 +50,49 @@ export default function App() {
     setWatched((watched) => watched.filter((w) => w.imdbID !== id));
   }
 
-  useEffect(() => {
-    async function fetchMovies() {
-      try {
-        setIsLoading(true);
-        setError("");
-        const res = await fetch(
-          `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
-        );
-        if (!res.ok)
-          throw new Error("Something went wrong with fetching movies");
+  useEffect(
+    function () {
+      const controller = new AbortController();
 
-        const data = await res.json();
-        if (data.Response === "False") throw new Error("Movie not found");
+      async function fetchMovies() {
+        try {
+          setIsLoading(true);
+          setError("");
+          const res = await fetch(
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+            { signal: controller.signal }
+          );
+          if (!res.ok)
+            throw new Error("Something went wrong with fetching movies");
 
-        setMovies(data.Search);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
+          const data = await res.json();
+          if (data.Response === "False") throw new Error("Movie not found");
+
+          setMovies(data.Search);
+          setError("");
+        } catch (err) {
+          if (err.name !== "AbortError") {
+            setError(err.message);
+          }
+        } finally {
+          setIsLoading(false);
+        }
       }
-    }
-    if (query.length < 3) {
-      setMovies([]);
-      setError("");
-      return;
-    }
-    fetchMovies();
-  }, [query]);
+      if (query.length < 3) {
+        setMovies([]);
+        setError("");
+        return;
+      }
+
+      handleClose();
+      fetchMovies();
+
+      return function () {
+        controller.abort();
+      };
+    },
+    [query]
+  );
 
   return (
     <>
