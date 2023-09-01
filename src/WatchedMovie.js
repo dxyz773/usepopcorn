@@ -2,8 +2,8 @@ import Stat from "./Stat";
 function WatchedMovie({ movie }) {
   return (
     <li>
-      <img src={movie.Poster} alt={`${movie.Title} poster`} />
-      <h3>{movie.Title}</h3>
+      <img src={movie.poster} alt={`${movie.title} poster`} />
+      <h3>{movie.title}</h3>
       <div>
         <Stat emoji={"⭐️"} stat={movie.imdbRating} />
         <Stat emoji={"🌟"} stat={movie.userRating} />
