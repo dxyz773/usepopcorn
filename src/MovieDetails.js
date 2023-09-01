@@ -25,6 +25,7 @@ function MovieDetails({
   } = detailedMovie;
 
   const watchedMovie = watched.filter((w) => w.imdbID === selectedID);
+  const currRating = watchedMovie[0]?.userRating;
 
   function handleAdd() {
     const newWatchedMovie = {
@@ -78,7 +79,10 @@ function MovieDetails({
       <section>
         <div className="rating">
           {watchedMovie.length > 0 ? (
-            <p>You rated this movie</p>
+            <p>
+              You rated this movie {currRating}
+              <span> ⭐️'s</span>
+            </p>
           ) : (
             <>
               <StarRating

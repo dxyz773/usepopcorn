@@ -3,12 +3,8 @@ function Summary({ watched }) {
   const average = (arr) =>
     arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-  const avgImdbRating = Math.round(
-    average(watched.map((movie) => movie.imdbRating))
-  );
-  const avgUserRating = Math.round(
-    average(watched.map((movie) => movie.userRating))
-  );
+  const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
+  const avgUserRating = average(watched.map((movie) => movie.userRating));
   const avgRuntime = Math.round(average(watched.map((movie) => movie.runtime)));
 
   return (
@@ -16,8 +12,8 @@ function Summary({ watched }) {
       <h2>Movies you watched</h2>
       <div>
         <Stat emoji={"#️⃣"} stat={watched.length} />
-        <Stat emoji={"⭐️"} stat={avgImdbRating} />
-        <Stat emoji={"🌟"} stat={avgUserRating} />
+        <Stat emoji={"⭐️"} stat={avgImdbRating?.toFixed(1)} />
+        <Stat emoji={"🌟"} stat={avgUserRating?.toFixed(1)} />
         <Stat emoji={"⏳"} stat={`${avgRuntime} min`} />
       </div>
     </div>
