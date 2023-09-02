@@ -1,4 +1,5 @@
 import WatchedMovie from "./WatchedMovie";
+
 function WatchedMovieList({ watched, onDeleteWatched }) {
   return (
     <ul className="list">

@@ -1,4 +1,5 @@
 import Stat from "./Stat";
+
 function Summary({ watched }) {
   const average = (arr) =>
     arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);

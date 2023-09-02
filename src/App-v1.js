@@ -18,15 +18,23 @@ export default function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
   const [selectedID, setSelectedID] = useState(null);
+  const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // const [watched, setWatched] = useState([]);
-
-  const [watched, setWatched] = useState(function () {
-    const storedValue = localStorage.getItem("localWatch");
-    return JSON.parse(storedValue);
+  /*
+  useEffect(() => {
+    console.log("After initial render");
+  }, []);
+  useEffect(() => {
+    console.log("After every render");
   });
+  useEffect(() => {
+    console.log("sychronized with query dependency");
+  }, [query]);
+
+  console.log("During render");
+*/
 
   function handleSelectedMovie(imdbID) {
     setSelectedID((selectedID) => (imdbID === selectedID ? null : imdbID));
@@ -37,20 +45,11 @@ export default function App() {
   }
   function handleAddWatched(movie) {
     setWatched((watched) => [...watched, movie]);
-
-    // localStorage.setItem("watched", JSON.stringify([...watched, movie]));
   }
 
   function handleDeleteWatched(id) {
     setWatched((watched) => watched.filter((w) => w.imdbID !== id));
   }
-
-  useEffect(
-    function () {
-      localStorage.setItem("localWatch", JSON.stringify(watched));
-    },
-    [watched]
-  );
 
   useEffect(
     function () {
