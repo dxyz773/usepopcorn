@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
 
 function MovieDetails({
@@ -24,6 +24,17 @@ function MovieDetails({
     Genre: genre,
   } = detailedMovie;
 
+  const countRef = useRef(0);
+
+  useEffect(
+    function () {
+      if (userRating) {
+        countRef.current++;
+      }
+    },
+    [userRating]
+  );
+
   const watchedMovie = watched.filter((w) => w.imdbID === selectedID);
   const currRating = watchedMovie[0]?.userRating;
 
@@ -36,6 +47,7 @@ function MovieDetails({
       imdbRating: Number(imdbRating),
       userRating,
       runtime: Number(runtime.split(" ").at(0)),
+      countRatingDecisions: countRef.current,
     };
     onAddWatched(newWatchedMovie);
     onCloseMovie();
