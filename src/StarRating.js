@@ -105,3 +105,22 @@ function Star({ onRate, onHoverIn, onHoverOut, full, color, size }) {
     </span>
   );
 }
+
+// function Test() {
+//   const [movieRating, setMovieRating] = useState(0);
+
+//   return (
+//     <div>
+//       <StarRating color="blue" maxRating={10} onSetRating={setMovieRating} />
+//       <p>This movie was rated {movieRating} stars</p>
+//     </div>
+//   );
+// }
+
+/* <StarRating
+      maxRating={5}
+      messages={["Terrible", "Bad", "Okay", "Good", "Amazing"]}
+    />
+    <StarRating maxRating={10} size={24} color={"#db2777"} defaultRating={3} />
+    <StarRating maxRating={4} size={30} color={"red"} className="test" />
+    <Test /> */

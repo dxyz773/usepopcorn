@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useKey } from "./useKey";
 import StarRating from "./StarRating";
 
 function MovieDetails({
@@ -53,22 +54,9 @@ function MovieDetails({
     onCloseMovie();
   }
 
-  useEffect(
-    function () {
-      function callback(e) {
-        if (e.key === "Escape") {
-          onCloseMovie();
-        }
-      }
+  // Custom Hook
+  useKey("keydown", "Escape", onCloseMovie);
 
-      document.addEventListener("keydown", callback);
-
-      return function () {
-        document.removeEventListener("keydown", callback);
-      };
-    },
-    [onCloseMovie]
-  );
   useEffect(() => {
     async function getMovieDetails() {
       const res = await fetch(

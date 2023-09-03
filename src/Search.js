@@ -1,26 +1,14 @@
-import { useEffect, useRef } from "react";
-
+import { useRef } from "react";
+import { useKey } from "./useKey";
 function Search({ query, setQuery }) {
   const inputEl = useRef(null);
 
-  useEffect(
-    function () {
-      function callback(e) {
-        // Here the activeElement property returns the element in the DOM that is currently in focus, and here I am checking if that element is in fact the element saved in usedRef so that the call back will early return and not reset the query
-        if (document.activeElement === inputEl.current) return;
-
-        if (e.key === "Enter") {
-          inputEl.current.focus();
-          setQuery("");
-        }
-      }
-
-      document.addEventListener("keydown", callback);
-
-      return () => document.removeEventListener("keydown", callback);
-    },
-    [setQuery]
-  );
+  // Custom Hook
+  useKey("keydown", "Enter", function () {
+    if (document.activeElement === inputEl.current) return;
+    inputEl.current.focus();
+    setQuery("");
+  });
 
   return (
     <input
