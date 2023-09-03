@@ -1,4 +1,4 @@
-# <span style="color:#fde047;">usePopcorn </span>🍿
+# usePopcorn 🍿
 
 #### Movie app created while taking Jonas Schmedtmann's - Ultimate React Course
 
@@ -38,4 +38,4 @@
    npm start
 ```
 
-🎬 <span style="color:#fde047">Enjoy usePopcorn!<span> 🍿
+🎬 Enjoy usePopcorn! 🍿
